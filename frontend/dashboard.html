@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ClearPath Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+</head>
+<body>
+
+  <header class="site-header">
+    <h1 data-i18n="dashboard_title">🖥️ ClearPath Dashboard</h1>
+    <p class="tagline" data-i18n="dashboard_explainer">
+      A read-only view of results captured elsewhere — open this page on a laptop while
+      a phone runs Live Monitoring in another room to see results here as they come in.
+    </p>
+
+    <div class="language-switcher">
+      <label for="language-select" data-i18n="language_label">🌐 Language</label>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="dashboard-controls">
+      <label class="dashboard-sound-label">
+        <input type="checkbox" id="dashboard-sound-toggle" />
+        <span data-i18n="dashboard_sound_toggle">🔊 Play sound for new results</span>
+      </label>
+      <button id="dashboard-clear-button" type="button" data-i18n="dashboard_clear_button">🗑 Clear History</button>
+    </section>
+
+    <p id="dashboard-connection-status" class="dashboard-connection-status" hidden></p>
+
+    <section class="upload-section">
+      <h2 data-i18n="dashboard_latest_heading">Latest Result</h2>
+
+      <div id="image-wrapper" hidden>
+        <img id="preview-image" alt="Latest captured photo" />
+      </div>
+
+      <p id="alert-message" class="alert-message" hidden></p>
+      <button id="replay-alert-button" type="button" hidden data-i18n="replay_alert_button">🔊 Replay Alert</button>
+
+      <p id="dashboard-empty-state" class="dashboard-empty-state" data-i18n="dashboard_no_results">
+        No results yet. Start Live Monitoring on the phone to see results here.
+      </p>
+    </section>
+
+    <section class="monitoring-section">
+      <div id="monitoring-history" class="monitoring-history"></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p data-i18n="footer_text">Built for a school AI-for-good project. Powered by Claude Sonnet 5 (Anthropic).</p>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="alerts.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

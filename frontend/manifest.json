@@ -1,0 +1,26 @@
+{
+  "name": "ClearPath - Home Safety Checker",
+  "short_name": "ClearPath",
+  "description": "Photo-based fall-risk hazard checker for aging-in-place seniors",
+  "start_url": "/",
+  "scope": "/",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone", "minimal-ui", "browser"],
+  "background_color": "#f4f7f6",
+  "theme_color": "#2f6f5e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

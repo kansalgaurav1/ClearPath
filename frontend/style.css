@@ -1,0 +1,569 @@
+/* ClearPath styling — kept simple and readable on purpose */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f4f7f6;
+  color: #2b2b2b;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.site-header {
+  background-color: #2f6f5e;
+  color: white;
+  text-align: center;
+  padding: calc(2rem + env(safe-area-inset-top)) 1rem 1.5rem;
+}
+
+.site-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 2rem;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.language-switcher {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.language-switcher select {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+#install-button {
+  margin-top: 1rem;
+  background-color: white;
+  color: #2f6f5e;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+#install-button:hover {
+  opacity: 0.9;
+}
+
+.ios-install-hint {
+  margin: 1rem auto 0;
+  max-width: 320px;
+  font-size: 0.85rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.disclaimer {
+  background-color: #fff8e1;
+  border: 1px solid #f0d78c;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Reference Photo section --- */
+
+.reference-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+.reference-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.optional-tag {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #999;
+}
+
+.reference-explainer {
+  font-size: 0.85rem;
+  color: #5a5a5a;
+  margin: 0 0 1rem;
+}
+
+#reference-preview-wrapper {
+  margin-bottom: 1rem;
+}
+
+#reference-preview-image {
+  display: block;
+  max-width: 100%;
+  max-height: 200px;
+  margin: 0 auto 0.7rem;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+#remove-reference-button {
+  background-color: #fdecea;
+  color: #a33;
+  border: 1px solid #f5c2c0;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+#remove-reference-button:hover {
+  background-color: #f9d9d6;
+}
+
+.reference-upload-label {
+  display: inline-block;
+  background-color: #eef6f3;
+  color: #2f6f5e;
+  border: 1px solid #a9c9bd;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reference-upload-label:hover {
+  background-color: #dcede6;
+}
+
+.reference-status {
+  font-size: 0.82rem;
+  color: #2f6f5e;
+  margin: 0.7rem 0 0;
+}
+
+/* --- Two-button "Take Photo" / "Choose from Gallery" pattern, used by
+   both the Reference Photo section and the manual upload section --- */
+
+.upload-choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.upload-choice-button {
+  display: inline-block;
+  background-color: #2f6f5e;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.3rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.upload-choice-button:hover {
+  background-color: #255a4c;
+}
+
+.upload-choice-button.secondary {
+  background-color: #eef6f3;
+  color: #2f6f5e;
+  border: 1px solid #a9c9bd;
+}
+
+.upload-choice-button.secondary:hover {
+  background-color: #dcede6;
+}
+
+.upload-hint {
+  color: #5a5a5a;
+  font-size: 0.85rem;
+  margin: 0.8rem 0 0;
+}
+
+/* --- Manual upload / photo display section --- */
+
+.upload-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+#image-wrapper {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin: 1.2rem auto;
+}
+
+#preview-image {
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  border-radius: 8px;
+}
+
+.alert-message {
+  text-align: left;
+  margin: 1rem 0 0;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: white;
+}
+
+.alert-message.all-clear {
+  background-color: #6fb98f;
+}
+
+.alert-message.severity-1 { background-color: #6fb98f; }
+.alert-message.severity-2 { background-color: #a3c95a; }
+.alert-message.severity-3 { background-color: #e8b23a; }
+.alert-message.severity-4 { background-color: #e8823a; }
+.alert-message.severity-5 { background-color: #d9534f; }
+
+#analyze-button {
+  margin-top: 1.2rem;
+  background-color: #2f6f5e;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+#analyze-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#analyze-button:not(:disabled):hover {
+  background-color: #255a4c;
+}
+
+#replay-alert-button {
+  margin-top: 1.2rem;
+  margin-left: 0.6rem;
+  background-color: #eef6f3;
+  color: #2f6f5e;
+  border: 1px solid #a9c9bd;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#replay-alert-button:hover {
+  background-color: #dcede6;
+}
+
+#status-section {
+  text-align: center;
+  padding: 1.5rem;
+  color: #5a5a5a;
+}
+
+.section-divider {
+  text-align: center;
+  color: #999;
+  font-size: 0.85rem;
+  margin: 1.2rem 0;
+}
+
+/* --- Live Monitoring section --- */
+
+.monitoring-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.monitoring-title {
+  margin: 0 0 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.monitoring-dot {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: #d9534f;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.monitoring-explainer {
+  font-size: 0.88rem;
+  color: #5a5a5a;
+  margin: 0 0 1rem;
+}
+
+.monitoring-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.monitoring-controls label {
+  font-size: 0.9rem;
+  color: #5a5a5a;
+}
+
+#interval-select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+#start-monitoring-button,
+#stop-monitoring-button {
+  border: none;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+#start-monitoring-button {
+  background-color: #2f6f5e;
+  color: white;
+}
+
+#stop-monitoring-button {
+  background-color: #d9534f;
+  color: white;
+}
+
+#start-monitoring-button:hover,
+#stop-monitoring-button:hover {
+  opacity: 0.9;
+}
+
+.monitoring-cost-note {
+  font-size: 0.78rem;
+  color: #999;
+  margin: 0 0 1rem;
+}
+
+#camera-video {
+  display: block;
+  width: 100%;
+  max-height: 480px;
+  object-fit: contain; /* shows the FULL camera frame, letterboxed if needed — never crops */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background-color: #000;
+}
+
+.monitoring-status {
+  font-size: 0.9rem;
+  color: #2f6f5e;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.monitoring-history {
+  border-top: 1px solid #eee;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.history-heading {
+  font-size: 0.9rem;
+  color: #5a5a5a;
+  margin: 0.5rem 0;
+}
+
+.history-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.history-thumbnail {
+  width: 3.2rem;
+  height: 3.2rem;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.history-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-time {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.history-summary {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+}
+
+.history-severity-dot {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.history-view-button {
+  background-color: #eef6f3;
+  color: #2f6f5e;
+  border: 1px solid #a9c9bd;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.history-view-button:hover {
+  background-color: #dcede6;
+}
+
+.error-text {
+  background-color: #fdecea;
+  border: 1px solid #f5c2c0;
+  color: #a33;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.site-footer {
+  text-align: center;
+  color: #888;
+  font-size: 0.8rem;
+  padding: 1.5rem 1rem calc(2.5rem + env(safe-area-inset-bottom));
+}
+
+.dashboard-link {
+  display: inline-block;
+  color: #2f6f5e;
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 0.8rem;
+}
+
+.dashboard-link:hover {
+  text-decoration: underline;
+}
+
+/* --- Dashboard page --- */
+
+.dashboard-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.2rem;
+}
+
+.dashboard-sound-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #5a5a5a;
+  cursor: pointer;
+}
+
+.dashboard-sound-label input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
+}
+
+#dashboard-clear-button {
+  background-color: #fdecea;
+  color: #a33;
+  border: 1px solid #f5c2c0;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+#dashboard-clear-button:hover {
+  background-color: #f9d9d6;
+}
+
+.dashboard-connection-status {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #a33;
+  background-color: #fdecea;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-connection-status.connected {
+  color: #2f6f5e;
+  background-color: #eef6f3;
+}
+
+.dashboard-empty-state {
+  color: #999;
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}

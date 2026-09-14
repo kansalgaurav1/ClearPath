@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ClearPath — Home Walkway Safety Checker</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Makes this page installable as an app (the manifest + service worker
+       are what let a phone "install" ClearPath from the browser). -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2f6f5e" />
+
+  <!-- Android/Chrome uses the manifest icons; these extra tags cover
+       iOS Safari and browser tab favicons, which don't read manifest.json. -->
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ClearPath" />
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>🏠 ClearPath</h1>
+    <p class="tagline" data-i18n="tagline">A photo-based walkway safety check for aging-in-place seniors</p>
+
+    <div class="language-switcher">
+      <label for="language-select" data-i18n="language_label">🌐 Language</label>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+      </select>
+    </div>
+
+    <button id="install-button" type="button" hidden data-i18n="install_button">📲 Install App</button>
+    <p id="ios-install-hint" class="ios-install-hint" hidden data-i18n="ios_install_hint">
+      To install: tap the Share icon ⬆️ in Safari, then "Add to Home Screen."
+    </p>
+  </header>
+
+  <main class="container">
+
+    <section class="disclaimer">
+      <strong data-i18n="disclaimer_bold">Please note:</strong>
+      <span data-i18n="disclaimer_text">
+        ClearPath is not a medical device and does not diagnose anything. It's a simple self-check
+        tool to help spot physical fall hazards — it does not replace a professional home safety
+        assessment.
+      </span>
+    </section>
+
+    <section class="reference-section">
+      <h2 class="reference-title">
+        <span data-i18n="reference_title">🖼️ Reference Photo</span>
+        <span class="optional-tag" data-i18n="reference_optional_tag">(optional)</span>
+      </h2>
+      <p class="reference-explainer" data-i18n="reference_explainer">
+        Upload a photo of this space when it's clear of hazards. Future checks
+        will compare against it, which helps spot what's new or changed.
+      </p>
+
+      <div id="reference-preview-wrapper" hidden>
+        <img id="reference-preview-image" alt="Current reference photo" />
+        <button id="remove-reference-button" type="button" data-i18n="remove_reference_button">🗑 Remove Reference</button>
+      </div>
+
+      <div class="upload-choices">
+        <label for="reference-input-camera" class="upload-choice-button" data-i18n="take_photo_button">📷 Take Photo</label>
+        <input type="file" id="reference-input-camera" accept="image/*" capture="environment" hidden />
+
+        <label for="reference-input-gallery" class="upload-choice-button secondary" data-i18n="choose_gallery_button">🖼️ Choose from Gallery</label>
+        <input type="file" id="reference-input-gallery" accept="image/jpeg,image/png,image/webp,image/gif" hidden />
+      </div>
+
+      <p id="reference-status" class="reference-status" hidden></p>
+    </section>
+
+    <section class="upload-section">
+      <div class="upload-choices">
+        <label for="photo-input-camera" class="upload-choice-button" data-i18n="take_photo_button">📷 Take Photo</label>
+        <input type="file" id="photo-input-camera" accept="image/*" capture="environment" hidden />
+
+        <label for="photo-input-gallery" class="upload-choice-button secondary" data-i18n="choose_gallery_button">🖼️ Choose from Gallery</label>
+        <input type="file" id="photo-input-gallery" accept="image/jpeg,image/png,image/webp,image/gif" hidden />
+      </div>
+
+      <p id="upload-hint" class="upload-hint" data-i18n="upload_text">Click to upload a photo of a room</p>
+
+      <div id="image-wrapper" hidden>
+        <img id="preview-image" alt="Preview of uploaded room photo" />
+      </div>
+
+      <p id="alert-message" class="alert-message" hidden></p>
+
+      <button id="analyze-button" disabled data-i18n="analyze_button">Check for Hazards</button>
+      <button id="replay-alert-button" type="button" hidden data-i18n="replay_alert_button">🔊 Replay Alert</button>
+    </section>
+
+    <p class="section-divider">— or —</p>
+
+    <section class="monitoring-section">
+      <h2 class="monitoring-title">
+        <span id="monitoring-dot" class="monitoring-dot" hidden></span>
+        <span data-i18n="monitoring_title">Live Monitoring</span>
+      </h2>
+      <p class="monitoring-explainer" data-i18n="monitoring_explainer">
+        Automatically checks for hazards on a timer using your camera —
+        only while this app stays open and on screen. Locking
+        your phone or switching apps will stop it (phones don't allow
+        background camera access), so this works best propped up somewhere
+        while you keep the app open.
+      </p>
+
+      <div class="monitoring-controls">
+        <label for="interval-select" data-i18n="check_every_label">Check every:</label>
+        <select id="interval-select">
+          <option value="now" data-i18n="interval_now">Now (continuous)</option>
+          <option value="1" data-i18n="interval_1min">1 minute</option>
+          <option value="2" data-i18n="interval_2min">2 minutes</option>
+          <option value="5" data-i18n="interval_5min">5 minutes</option>
+          <option value="10" data-i18n="interval_10min">10 minutes</option>
+          <option value="15" data-i18n="interval_15min">15 minutes</option>
+          <option value="30" data-i18n="interval_30min">30 minutes</option>
+        </select>
+        <button id="start-monitoring-button" type="button" data-i18n="start_monitoring_button">▶ Start Monitoring</button>
+        <button id="stop-monitoring-button" type="button" hidden data-i18n="stop_monitoring_button">⏹ Stop Monitoring</button>
+      </div>
+      <p class="monitoring-cost-note" data-i18n="monitoring_cost_note">
+        Each check calls the Claude API, so shorter intervals mean more calls
+        (and a little more cost on your Anthropic account).
+      </p>
+
+      <video id="camera-video" autoplay muted playsinline hidden></video>
+      <canvas id="capture-canvas" hidden></canvas>
+
+      <p id="monitoring-status" class="monitoring-status" hidden></p>
+
+      <div id="monitoring-history" class="monitoring-history"></div>
+    </section>
+
+    <section id="status-section" hidden>
+      <p id="status-text" data-i18n="status_text">Analyzing photo...</p>
+    </section>
+
+    <section id="error-section" hidden>
+      <p id="error-text" class="error-text"></p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <a href="dashboard.html" target="_blank" class="dashboard-link" data-i18n="dashboard_link">🖥️ Open Dashboard (view on another device)</a>
+    <p data-i18n="footer_text">Built for a school AI-for-good project. Powered by Claude Sonnet 5 (Anthropic).</p>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+  <script src="alerts.js"></script>
+  <script src="reference.js"></script>
+  <script src="voice-command.js"></script>
+  <script src="monitoring.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>
